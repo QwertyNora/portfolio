@@ -8,8 +8,6 @@ public class AppDbContext : IdentityDbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-    public DbSet<Project> Projects => Set<Project>();
-    public DbSet<Experience> Experiences => Set<Experience>();
     public DbSet<ContactMessage> ContactMessages => Set<ContactMessage>();
 
 }
