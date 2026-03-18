@@ -8,6 +8,6 @@ public class ProjectDto
     public string[] Technologies { get; set; } = [];
     public string? GitHubUrl { get; set; }
     public string? LiveUrl { get; set; }
-    public string? ImgageUrl { get; set; }
+    public string? ImageUrl { get; set; }
     public bool IsFeatured { get; set; }
 }
