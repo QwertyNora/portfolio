@@ -35,24 +35,4 @@ public class StaticProjectRepository : IProjectRepository
     public Task<Project?> GetByIdAsync(int id) =>
         Task.FromResult(_projects.FirstOrDefault(p => p.Id == id));
 
-    public Task<Project> CreateAsync(Project project)
-    {
-        project.Id = _projects.Max(p => p.Id) + 1;
-        _projects.Add(project);
-        return Task.FromResult(project);
-    }
-
-    public Task<Project> UpdateAsync(Project project)
-    {
-        var index = _projects.FindIndex(p => p.Id == project.Id);
-        if (index != -1) _projects[index] = project;
-        return Task.FromResult(project);
-    }
-
-    public Task DeleteAsync(int id)
-    {
-        var project = _projects.FirstOrDefault(p => p.Id == id);
-        if (project is not null) _projects.Remove(project);
-        return Task.CompletedTask;
-    }
 }
