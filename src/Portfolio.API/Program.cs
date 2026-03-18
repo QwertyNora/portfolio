@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using Portfolio.Application.Interfaces;
 using Portfolio.Infrastructure.Data;
 using Portfolio.Infrastructure.Repositories.Static;
@@ -7,26 +10,48 @@ using Portfolio.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// -- Database ----------------------------------------------------------
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// -- Identity ----------------------------------------------------------
+
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
-// ── Repositories & Services ──────────────────────────────────────────
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+var secret = jwtSettings["Secret"]!;
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret))
+    };
+});
+
+
 builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddSingleton<IProjectRepository, StaticProjectRepository>();
 builder.Services.AddSingleton<IExperienceRepository, StaticExperienceRepository>();
 
-// ── Controllers & Swagger ────────────────────────────────────────────
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// ── CORS ─────────────────────────────────────────────────────────────
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -37,7 +62,6 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// ── Middleware ─────────────────────────────────────────
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
