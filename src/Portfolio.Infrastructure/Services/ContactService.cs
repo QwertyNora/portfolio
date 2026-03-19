@@ -8,10 +8,12 @@ namespace Portfolio.Infrastructure.Services;
 public class ContactService : IContactService
 {
     private readonly AppDbContext _context;
+    private readonly EmailService _emailService;
 
-    public ContactService(AppDbContext context)
+    public ContactService(AppDbContext context, EmailService emailService)
     {
         _context = context;
+        _emailService = emailService;
     }
 
     public async Task SendMessageAsync(ContactMessage message)
@@ -19,7 +21,11 @@ public class ContactService : IContactService
         _context.ContactMessages.Add(message);
         await _context.SaveChangesAsync();
 
-        // TODO: Send-mail business logic 
+        await _emailService.SendContactNotificationAsync(
+            message.Name,
+            message.Email,
+            message.Message
+        );
     }
 
     public async Task<IEnumerable<ContactMessage>> GetAllMessagesAsync() =>

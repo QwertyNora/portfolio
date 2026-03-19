@@ -7,6 +7,7 @@ using Portfolio.Application.Interfaces;
 using Portfolio.Infrastructure.Data;
 using Portfolio.Infrastructure.Repositories.Static;
 using Portfolio.Infrastructure.Services;
+using Resend;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,16 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var secret = jwtSettings["Secret"]!;
+
+// ── Resend ─────────────────────────────────────────────
+builder.Services.AddOptions();
+builder.Services.AddHttpClient<ResendClient>();
+builder.Services.Configure<ResendClientOptions>(options =>
+{
+    options.ApiToken = builder.Configuration["Resend:ApiKey"]!;
+});
+builder.Services.AddTransient<IResend, ResendClient>();
+builder.Services.AddTransient<EmailService>();
 
 builder.Services.AddAuthentication(options =>
 {
