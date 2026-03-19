@@ -7,6 +7,7 @@ import Experience from "./pages/Experience";
 import Contact from "./pages/Contact";
 import Login from "./pages/admin/Login";
 import Dashboard from "./pages/admin/Dashboard";
+import Navbar from "./components/Navbar";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     const { isAuthenticated } = useAuth();
@@ -17,6 +18,7 @@ const App = () => {
     return (
         <AuthProvider>
             <BrowserRouter>
+                <Navbar />
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/projects" element={<Projects />} />
