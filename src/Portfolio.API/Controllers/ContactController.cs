@@ -38,11 +38,13 @@ public class ContactController : ControllerBase
     public async Task<ActionResult<IEnumerable<ContactMessageDto>>> GetAll()
     {
         var messages = await _contactService.GetAllMessagesAsync();
-        var dtos = messages.Select(m => new ContactMessageDto
+        var dtos = messages.Select(m => new AdminContactMessageDto
         {
             Name = m.Name,
             Email = m.Email,
-            Message = m.Message
+            Message = m.Message,
+            SentAt = m.SentAt,
+            IsRead = m.IsRead
         });
         return Ok(dtos);
     }
