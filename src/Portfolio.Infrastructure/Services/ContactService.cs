@@ -34,4 +34,14 @@ public class ContactService : IContactService
             await _context.SaveChangesAsync();
         }
     }
+
+    public async Task DeleteAsync(int id)
+    {
+        var message = await _context.ContactMessages.FindAsync(id);
+        if (message is not null)
+        {
+            _context.ContactMessages.Remove(message);
+            await _context.SaveChangesAsync();
+        }
+    }
 }
