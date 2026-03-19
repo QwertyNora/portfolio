@@ -13,3 +13,7 @@ export const getContactMessages = async (): Promise<AdminContactMessage[]> => {
 export const markMessageAsRead = async (id: number): Promise<void> => {
     await axiosInstance.patch(`/contact/${id}/read`);
 };
+
+export const deleteContactMessage = async (id: number): Promise<void> => {
+    await axiosInstance.delete(`/contact/${id}`);
+};
