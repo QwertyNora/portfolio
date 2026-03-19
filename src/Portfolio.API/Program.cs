@@ -73,4 +73,12 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+    await DatabaseSeeder.SeedAdminAsync(userManager, configuration);
+}
+
 app.Run();
