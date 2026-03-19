@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { getContactMessages, markMessageAsRead } from "../../api/contactApi";
+import { deleteContactMessage, getContactMessages, markMessageAsRead } from "../../api/contactApi";
 import type { AdminContactMessage } from "../../types/contact";
 
 const Dashboard = () => {
@@ -36,6 +36,15 @@ const Dashboard = () => {
         }
     };
 
+    const handleDelete = async (id: number) => {
+        try {
+            await deleteContactMessage(id);
+            setMessages(prev => prev.filter(m => m.id !== id));
+        } catch {
+            setError("Could not delete message");
+        }
+    };
+
     const handleLogout = () => {
         logout();
         navigate("/admin/login");
@@ -59,12 +68,12 @@ const Dashboard = () => {
                 messages.map(m => (
                     <div key={m.id}>
                         <p>
-                            {" "}
                             {m.name} - {m.email}
                         </p>
                         <p>{m.message}</p>
                         <p>{new Date(m.sentAt).toLocaleDateString("sv-SE")}</p>
                         {!m.isRead && <button onClick={() => handleMarkAsRead(m.id)}>Mark as read</button>}
+                        <button onClick={() => handleDelete(m.id)}>Delete</button>
                     </div>
                 ))
             )}
