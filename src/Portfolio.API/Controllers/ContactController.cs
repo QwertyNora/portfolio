@@ -40,6 +40,7 @@ public class ContactController : ControllerBase
         var messages = await _contactService.GetAllMessagesAsync();
         var dtos = messages.Select(m => new AdminContactMessageDto
         {
+            Id = m.Id,
             Name = m.Name,
             Email = m.Email,
             Message = m.Message,
@@ -54,6 +55,14 @@ public class ContactController : ControllerBase
     public async Task<IActionResult> MarkAsRead(int id)
     {
         await _contactService.MarkAsReadAsync(id);
+        return NoContent();
+    }
+
+    [Authorize]
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        await _contactService.DeleteAsync(id);
         return NoContent();
     }
 }
