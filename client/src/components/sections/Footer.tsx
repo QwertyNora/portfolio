@@ -32,7 +32,7 @@ const Footer = () => (
             {/* Bottom row */}
             <div className="flex justify-between items-center">
                 <span className="font-mono text-[11px] text-(--text-muted)">
-                    © {new Date().getFullYear()} Nora Silfver
+                    Made With Love © {new Date().getFullYear()} Nora Silfver
                 </span>
                 <div className="flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-(--green) inline-block" />
