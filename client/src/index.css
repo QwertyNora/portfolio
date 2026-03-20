@@ -28,12 +28,6 @@
     --green: #16a34a;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
 html {
     scroll-behavior: smooth;
 }
@@ -49,4 +43,34 @@ body {
 
 #root {
     min-height: 100vh;
+}
+
+.desktop-nav {
+    display: flex;
+}
+
+.hamburger {
+    display: none !important;
+}
+
+.mobile-nav {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .desktop-nav {
+        display: none !important;
+    }
+
+    .hamburger {
+        display: flex !important;
+    }
+
+    .mobile-nav {
+        display: flex !important;
+    }
+
+    .theme-label {
+        display: none;
+    }
 }
