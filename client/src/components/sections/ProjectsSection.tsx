@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getProjects } from "../../api/projectsApi";
 import type { Project } from "../../types/project";
 import ProjectCard from "../ProjectCard";
+import ProjectCardSkeleton from "../ui/ProjectCardSkeleton";
 
 const ProjectsSection = () => {
     const [featuredProjects, setFeaturedProjects] = useState<Project[]>([]);
@@ -29,9 +30,9 @@ const ProjectsSection = () => {
                 <p className="font-mono text-[13px] text-(--text-muted)">// loading...</p>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {featuredProjects.map(p => (
-                        <ProjectCard key={p.id} project={p} />
-                    ))}
+                    {loading
+                        ? Array.from({ length: 2 }).map((_, i) => <ProjectCardSkeleton key={i} />)
+                        : featuredProjects.map(p => <ProjectCard key={p.id} project={p} />)}
                 </div>
             )}
         </section>
