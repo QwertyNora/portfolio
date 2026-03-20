@@ -7,10 +7,10 @@ type ProjectCardProps = {
 };
 
 const ProjectCard = ({ project }: ProjectCardProps) => {
-    const filename = `${project.title.toLowerCase().replace(/\s+/g, "-")}.tsx`;
+    const filename = `${project.title.toLowerCase().replace(/\s+/g, "-")}.sln`;
 
     return (
-        <BrowserCard filename={filename} dotSize="sm">
+        <BrowserCard filename={filename} dotSize="sm" hoverable>
             <div className="p-5">
                 <h3 className="text-[14.5px] font-medium text-(--text-primary) mb-1.5">{project.title}</h3>
                 <p className="text-[13px] text-(--text-secondary) leading-[1.65] mb-4">{project.description}</p>
