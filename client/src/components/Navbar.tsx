@@ -14,7 +14,7 @@ const Navbar = () => {
     const navLinks = ["home", "projects", "experience", "contact"];
 
     return (
-        <nav className="sticky top-0 z-100 bg-(--bg-primary) border-b border-(--border)">
+        <nav className="sticky top-0 z-100 bg-(--bg-primary)/70 backdrop-blur-xs border-b border-(--border)">
             <div className="flex items-center justify-between h-14 px-8">
                 {/* Logo */}
                 <span className="font-mono text-[15px] font-medium text-(--accent)">nora.dev</span>
