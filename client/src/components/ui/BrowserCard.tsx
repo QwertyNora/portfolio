@@ -4,13 +4,16 @@ type BrowserCardProps = {
     filename: string;
     children: ReactNode;
     dotSize?: "sm" | "md";
+    hoverable?: boolean;
 };
 
-const BrowserCard = ({ filename, children, dotSize = "sm" }: BrowserCardProps) => {
+const BrowserCard = ({ filename, children, dotSize = "sm", hoverable = false }: BrowserCardProps) => {
     const dot = dotSize === "md" ? "w-2.25 h-2.25" : "w-1.5 h-1.5";
 
     return (
-        <div className="bg-(--bg-secondary) border border-(--border) rounded-[10px] overflow-hidden">
+        <div
+            className={`bg-(--bg-secondary) border border-(--border) rounded-[10px] overflow-hidden transition-colors duration-200 ${hoverable ? "hover:border-(--accent) hover:shadow-md cursor-pointer" : ""}`}
+        >
             <div className="bg-(--bg-tertiary) border-b border-(--border) px-4 py-2.5 flex items-center gap-1.5">
                 <span className={`${dot} rounded-full bg-[#ff5f57] inline-block`} />
                 <span className={`${dot} rounded-full bg-[#febc2e] inline-block`} />
