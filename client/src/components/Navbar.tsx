@@ -1,17 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTheme } from "../hooks/useTheme";
 
 const Navbar = () => {
     const { isDark, toggleTheme } = useTheme();
     const [menuOpen, setMenuOpen] = useState(false);
+    const [activeSection, setActiveSection] = useState("home");
+
+    const navLinks = ["home", "projects", "experience", "contact"];
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const nearBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 100;
+            if (nearBottom) {
+                setActiveSection("contact");
+                return;
+            }
+
+            for (const id of [...navLinks].reverse()) {
+                const el = document.getElementById(id);
+                if (el && window.scrollY >= el.offsetTop - 80) {
+                    setActiveSection(id);
+                    break;
+                }
+            }
+        };
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     const scrollTo = (id: string) => {
         const element = document.getElementById(id);
         element?.scrollIntoView({ behavior: "smooth" });
         setMenuOpen(false);
     };
-
-    const navLinks = ["home", "projects", "experience", "contact"];
 
     return (
         <nav className="sticky top-0 z-100 bg-(--bg-primary)/70 backdrop-blur-xs border-b border-(--border)">
@@ -25,7 +46,11 @@ const Navbar = () => {
                         <button
                             key={section}
                             onClick={() => scrollTo(section)}
-                            className="bg-transparent border-none text-(--text-secondary) text-[14px] cursor-pointer py-1 font-sans hover:text-(--text-primary) transition-colors"
+                            className={`bg-transparent border-none text-[14px] cursor-pointer py-1 font-sans transition-colors ${
+                                activeSection === section
+                                    ? "text-(--accent)"
+                                    : "text-(--text-secondary) hover:text-(--text-primary)"
+                            }`}
                         >
                             {section}
                         </button>
@@ -67,7 +92,9 @@ const Navbar = () => {
                         <button
                             key={section}
                             onClick={() => scrollTo(section)}
-                            className="bg-transparent border-none border-b border-(--border) text-(--text-secondary) text-[15px] cursor-pointer py-3.5 text-left w-full font-sans"
+                            className={`bg-transparent border-none border-b border-(--border) text-[15px] cursor-pointer py-3.5 text-left w-full font-sans transition-colors ${
+                                activeSection === section ? "text-(--accent)" : "text-(--text-secondary)"
+                            }`}
                         >
                             {section}
                         </button>
