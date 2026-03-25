@@ -7,6 +7,7 @@ import Experience from "./pages/Experience";
 import Contact from "./pages/Contact";
 import Login from "./pages/admin/Login";
 import Dashboard from "./pages/admin/Dashboard";
+import ProjectDetail from "./pages/ProjectDetail";
 import Navbar from "./components/Navbar";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -22,6 +23,7 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/projects" element={<Projects />} />
+                    <Route path="/projects/:slug" element={<ProjectDetail />} />
                     <Route path="/experience" element={<Experience />} />
                     <Route path="/contact" element={<Contact />} />
 
