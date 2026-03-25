@@ -5,7 +5,7 @@ const Footer = () => (
             <div className="flex flex-col sm:flex-row justify-between items-start gap-6 pb-5 border-b border-(--border) mb-4">
                 <div>
                     <p className="font-mono text-[15px] font-semibold text-(--accent) mb-1.5">nora.dev</p>
-                    <p className="text-[12px] text-(--text-muted) leading-relaxed max-w-[220px]">
+                    <p className="text-[12px] text-(--text-muted) leading-relaxed max-w-55">
                         Building things with .NET and React. Always open to interesting projects.
                     </p>
                 </div>
