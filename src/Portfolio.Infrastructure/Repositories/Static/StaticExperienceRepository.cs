@@ -17,6 +17,17 @@ public class StaticExperienceRepository : IExperienceRepository
             EndDate = null,
             IsCurrentPosition = true,
             Type = ExperienceType.Education
+        },
+        new Experience
+        {
+            Id = 2,
+            Company = "SALT",
+            Role = "Utvecklarstudent",
+            Description = "Fullstack-utbildning med fokus på modern webbutveckling.",
+            StartDate = new DateOnly(2025, 1, 1),
+            EndDate = null,
+            IsCurrentPosition = false,
+            Type = ExperienceType.Education
         }
     ];
 
