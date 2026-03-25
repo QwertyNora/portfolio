@@ -1,25 +1,8 @@
-import { useState, useEffect } from "react";
-import { getExperiences } from "../../api/experienceApi";
-import type { ExperienceItem } from "../../types/experience";
+import { useExperiences } from "../../hooks/useExperiences";
 import ExperienceCard from "../ExperienceCard";
 
 const ExperienceSection = () => {
-    const [experiences, setExperiences] = useState<ExperienceItem[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchExperiences = async () => {
-            try {
-                const data = await getExperiences();
-                setExperiences(data);
-            } catch {
-                console.error("Could not load experiences");
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchExperiences();
-    }, []);
+    const { experiences, loading } = useExperiences();
 
     return (
         <section id="experience" className="mx-auto max-w-230 px-6 py-14 border-t border-(--border)">
@@ -28,9 +11,9 @@ const ExperienceSection = () => {
             {loading ? (
                 <p className="font-mono text-[13px] text-(--text-muted)">// loading...</p>
             ) : (
-                <div className="flex flex-col">
-                    {experiences.map((e, index) => (
-                        <ExperienceCard key={e.id} experience={e} isLast={index === experiences.length - 1} />
+                <div className="ml-1.5">
+                    {experiences.map(e => (
+                        <ExperienceCard key={e.id} experience={e} />
                     ))}
                 </div>
             )}
