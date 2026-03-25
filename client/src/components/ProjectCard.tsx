@@ -13,9 +13,9 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 
     return (
         <BrowserCard filename={filename} dotSize="sm" hoverable>
-            <div className="flex gap-0">
-                {/* Image & Thumbnail */}
-                <div className="w-64 shrink-0 border-r border-(--border)">
+            <div className="flex flex-col sm:flex-row">
+                {/* Image & Thumbnails */}
+                <div className="w-full sm:w-64 shrink-0 border-b sm:border-b-0 sm:border-r border-(--border)">
                     <div className="h-48 bg-(--bg-tertiary) flex items-center justify-center text-(--text-muted) font-mono text-[11px]">
                         {project.imageUrl ? (
                             <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />
@@ -32,11 +32,11 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 
                 {/* Content */}
                 <div className="flex-1 p-5 flex flex-col gap-3">
-                    <div className="flex justify-between items-start">
+                    <div className="flex justify-between items-start gap-3">
                         <h3 className="text-[15px] font-medium text-(--text-primary)">{project.title}</h3>
                         <button
                             onClick={() => navigate(`/projects/${project.slug}`)}
-                            className="font-mono text-[11px] text-(--accent) border border-[rgba(167,139,250,0.3)] rounded px-2 py-1 bg-transparent cursor-pointer hover:border-(--accent) whitespace-nowrap"
+                            className="font-mono text-[11px] text-(--accent) border border-[rgba(167,139,250,0.3)] rounded px-2 py-1 bg-transparent cursor-pointer hover:border-(--accent) whitespace-nowrap shrink-0"
                         >
                             View project →
                         </button>
