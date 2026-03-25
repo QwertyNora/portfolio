@@ -6,11 +6,14 @@ import Footer from "../components/sections/Footer";
 
 const Home = () => (
     <div className="bg-(--bg-primary) text-(--text-primary)">
-        <HeroSection />
-        <ProjectsSection />
-        <ExperienceSection />
-        <ContactSection />
-        <Footer />
+        <div className="spotlight" />
+        <div className="relative z-10">
+            <HeroSection />
+            <ProjectsSection />
+            <ExperienceSection />
+            <ContactSection />
+            <Footer />
+        </div>
     </div>
 );
 
