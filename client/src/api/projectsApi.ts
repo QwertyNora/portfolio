@@ -10,3 +10,8 @@ export const getProjectById = async (id: number): Promise<Project> => {
     const response = await axiosInstance.get(`/projects/${id}`);
     return response.data;
 };
+
+export const getProjectBySlug = async (slug: string): Promise<Project> => {
+    const response = await axiosInstance.get(`/projects/${slug}`);
+    return response.data;
+};
