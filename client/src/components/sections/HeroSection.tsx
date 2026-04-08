@@ -1,4 +1,5 @@
 import BrowserCard from "../ui/BrowserCard";
+import Button from "../ui/Button";
 
 const HeroSection = () => (
     <section id="home" className="mx-auto max-w-230 px-6 pt-20 pb-16 flex flex-col md:flex-row gap-12 items-center">
@@ -14,19 +15,19 @@ const HeroSection = () => (
                 Building modern web applications with .NET and React. Passionate about clean code and great user
                 experiences.
             </p>
-            <div className="flex gap-3">
-                <button
+            <div className="flex gap-10">
+                <Button
+                    variant="primary"
                     onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
-                    className="bg-(--accent) text-(--bg-primary) px-5 py-2.5 rounded-md text-[13.5px] font-semibold cursor-pointer border-none"
                 >
                     View projects
-                </button>
-                <button
+                </Button>
+                <Button
+                    variant="outline"
                     onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                    className="bg-transparent text-(--accent) border border-(--accent) px-5 py-2.5 rounded-md text-[13.5px] cursor-pointer"
                 >
                     Contact me
-                </button>
+                </Button>
             </div>
         </div>
 
