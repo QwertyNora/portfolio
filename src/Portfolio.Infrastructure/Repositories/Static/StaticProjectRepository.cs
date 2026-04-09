@@ -355,7 +355,7 @@ This project is part of the Salt community.
 """,
             Technologies = ["C#", ".NET", "React", "TypeScript", "PostgreSQL"],
             GitHubUrl = "https://github.com/QwertyNora/portfolio",
-            ImageUrls = ["/project-images/codequest1.png", "/project-images/codequest2.png"],
+            ImageUrls = ["/project-images/codequest1.png", "/project-images/codequest2.png", "/project-images/codequest3.png", "/project-images/codequest4.png", "/project-images/codequest5.png"],
             IsFeatured = true,
             CreatedAt = new DateTime(2026, 1, 1)
         },
