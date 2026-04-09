@@ -27,19 +27,30 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
             <div className="flex flex-col sm:flex-row">
                 {/* Image & Thumbnails */}
                 <div className="w-full sm:w-64 shrink-0 border-b sm:border-b-0 sm:border-r border-(--border)">
-                    <div className="h-48 bg-(--bg-tertiary) flex items-center justify-center text-(--text-muted) font-mono text-[11px]">
+                    <div className="relative h-48 overflow-hidden bg-(--bg-tertiary) flex items-center justify-center text-(--text-muted) font-mono text-[11px]">
                         {previewImage ? (
                             <AnimatePresence mode="wait" initial={false}>
-                                <motion.img
+                                <motion.div
                                     key={`${project.slug}-${activeImageIndex}`}
-                                    src={previewImage}
-                                    alt={project.title}
-                                    className="w-full h-full object-cover"
+                                    className="relative h-full w-full"
                                     initial={{ opacity: 0, scale: 1.02 }}
                                     animate={{ opacity: 1, scale: 1 }}
                                     exit={{ opacity: 0, scale: 0.985 }}
                                     transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-                                />
+                                >
+                                    <img
+                                        src={previewImage}
+                                        alt=""
+                                        aria-hidden="true"
+                                        className="absolute inset-0 h-full w-full object-cover scale-110 blur-xl opacity-35"
+                                    />
+                                    <div className="absolute inset-0 bg-[rgba(2,6,23,0.18)]" />
+                                    <img
+                                        src={previewImage}
+                                        alt={project.title}
+                                        className="relative z-10 h-full w-full object-contain p-2"
+                                    />
+                                </motion.div>
                             </AnimatePresence>
                         ) : (
                             "// no image"

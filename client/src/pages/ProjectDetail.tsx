@@ -62,16 +62,27 @@ const ProjectDetail = () => {
                 {heroImage && (
                     <div className="mb-10 border border-(--border) rounded-[10px] overflow-hidden bg-(--bg-tertiary)">
                         <AnimatePresence mode="wait" initial={false}>
-                            <motion.img
+                            <motion.div
                                 key={`${project.slug}-${activeImageIndex}`}
-                                src={heroImage}
-                                alt={project.title}
-                                className="w-full h-auto max-h-[440px] object-cover"
+                                className="relative aspect-[16/10] w-full sm:aspect-[16/9]"
                                 initial={{ opacity: 0, scale: 1.02 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.985 }}
                                 transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                            />
+                            >
+                                <img
+                                    src={heroImage}
+                                    alt=""
+                                    aria-hidden="true"
+                                    className="absolute inset-0 h-full w-full object-cover scale-110 blur-2xl opacity-35"
+                                />
+                                <div className="absolute inset-0 bg-[rgba(2,6,23,0.22)]" />
+                                <img
+                                    src={heroImage}
+                                    alt={project.title}
+                                    className="relative z-10 h-full w-full object-contain p-3 sm:p-4"
+                                />
+                            </motion.div>
                         </AnimatePresence>
                     </div>
                 )}
