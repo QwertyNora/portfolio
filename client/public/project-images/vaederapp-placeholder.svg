@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Vaederapp Placeholder</title>
+  <desc id="desc">Placeholder image for the Vaederapp project.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#172554" />
+      <stop offset="100%" stop-color="#1e3a8a" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)" />
+  <text x="80" y="330" fill="#dbeafe" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="48">Vaederapp</text>
+  <text x="80" y="385" fill="#93c5fd" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="24">Placeholder image</text>
+</svg>

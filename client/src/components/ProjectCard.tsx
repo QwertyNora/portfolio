@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import type { Project } from "../types/project";
 import BrowserCard from "./ui/BrowserCard";
 import Badge from "./ui/Badge";
@@ -10,6 +12,15 @@ type ProjectCardProps = {
 const ProjectCard = ({ project }: ProjectCardProps) => {
     const navigate = useNavigate();
     const filename = `${project.slug}.sln`;
+    const images = project.imageUrls ?? [];
+    const [activeImageIndex, setActiveImageIndex] = useState(0);
+    const previewImage = images[activeImageIndex];
+
+    useEffect(() => {
+        if (activeImageIndex > images.length - 1) {
+            setActiveImageIndex(0);
+        }
+    }, [images.length, activeImageIndex]);
 
     return (
         <BrowserCard filename={filename} dotSize="sm" hoverable>
@@ -17,16 +28,43 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
                 {/* Image & Thumbnails */}
                 <div className="w-full sm:w-64 shrink-0 border-b sm:border-b-0 sm:border-r border-(--border)">
                     <div className="h-48 bg-(--bg-tertiary) flex items-center justify-center text-(--text-muted) font-mono text-[11px]">
-                        {project.imageUrl ? (
-                            <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />
+                        {previewImage ? (
+                            <AnimatePresence mode="wait" initial={false}>
+                                <motion.img
+                                    key={`${project.slug}-${activeImageIndex}`}
+                                    src={previewImage}
+                                    alt={project.title}
+                                    className="w-full h-full object-cover"
+                                    initial={{ opacity: 0, scale: 1.02 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.985 }}
+                                    transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+                                />
+                            </AnimatePresence>
                         ) : (
                             "// no image"
                         )}
                     </div>
-                    <div className="flex gap-1.5 p-2 border-t border-(--border) bg-(--bg-tertiary)">
-                        <div className="w-8 h-6 rounded border border-(--accent) bg-(--bg-primary)" />
-                        <div className="w-8 h-6 rounded border border-(--border) bg-(--bg-primary)" />
-                        <div className="w-8 h-6 rounded border border-(--border) bg-(--bg-primary)" />
+                    <div className="flex gap-1.5 p-2 border-t border-(--border) bg-(--bg-tertiary) overflow-x-auto">
+                        {images.length > 0 ? (
+                            images.map((image, index) => (
+                                <button
+                                    key={`${project.slug}-thumb-${index}`}
+                                    type="button"
+                                    onClick={() => setActiveImageIndex(index)}
+                                    className={`shrink-0 rounded border overflow-hidden transition-all cursor-pointer ${activeImageIndex === index ? "border-(--accent) ring-1 ring-(--accent)" : "border-(--border) hover:border-(--accent)"}`}
+                                    aria-label={`Show ${project.title} image ${index + 1}`}
+                                >
+                                    <img
+                                        src={image}
+                                        alt={`${project.title} thumbnail ${index + 1}`}
+                                        className="w-8 h-6 bg-(--bg-primary) object-cover"
+                                    />
+                                </button>
+                            ))
+                        ) : (
+                            <div className="w-full font-mono text-[10px] text-(--text-muted)">// no previews</div>
+                        )}
                     </div>
                 </div>
 

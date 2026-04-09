@@ -45,10 +45,12 @@ public class ProjectsController : ControllerBase
         Slug = p.Slug,
         Title = p.Title,
         Description = p.Description,
+        AboutMarkdown = p.AboutMarkdown,
         Technologies = p.Technologies,
         GitHubUrl = p.GitHubUrl,
         LiveUrl = p.LiveUrl,
         ImageUrl = p.ImageUrl,
+        ImageUrls = p.ImageUrls,
         IsFeatured = p.IsFeatured
     };
 }
